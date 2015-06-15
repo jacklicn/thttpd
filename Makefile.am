@@ -38,13 +38,9 @@ WEBDIR = $(prefix)/www
 WEBGROUP = www
 
 # CONFIGURE: Directory for CGI executables.
-CGIBINDIR =	$(WEBDIR)/cgi-bin
-
-GENHDR = mime_encodings.h mime_types.h
+CGIBINDIR = $(WEBDIR)/cgi-bin
 
 man_MANS = thttpd.8
-
-CLEANFILES = $(GENHDR)
 
 sbin_PROGRAMS = thttpd
 thttpd_SOURCES = thttpd.c libhttpd.c fdwatch.c mmc.c timers.c match.c tdate_parse.c mime_encodings.h mime_types.h
