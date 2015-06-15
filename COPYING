@@ -1,0 +1,67 @@
+ACME Labs Freeware License
+
+All the free software available on the ACME Labs web site has a copyright notice like this one: 
+
+Copyright © 2000 by Jef Poskanzer <jef@mail.acme.com>.  All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+1. Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+SUCH DAMAGE.
+
+
+So what does this legalese mean? This is a modified version of the BSD license. 
+You may be more familiar with the Gnu Public License, since it gets a lot of press. 
+Well, forget about that. The BSD license is very different. 
+While the Gnu license puts all sorts of restrictions on what you can do with the software, 
+BSD-style licenses say "Hey, do what you like, we don't care. 
+Just let people know we wrote it, and don't sue us." That's really all there is to it. 
+The first paragraph with the numbered items says you can do what you like with the code, as long as you keep our name on it. 
+The original BSD license had a couple more provisions there, we got rid of those. 
+The second paragraph, all in capital letters, 
+is a standard legal boilerplate notification that tries to make it difficult for anyone to successfully sue us over the software. 
+
+By the way, FreshMeat has a nice list of different types of freeware licenses. 
+There are quite a few besides BSD and GPL. There's also the OpenSource.org list of open source licenses, 
+which is not quite the same as the freeware licenses. 
+
+Here are some questions people ask about the license: 
+"Can I use your software in a freeware product?"
+    Sure. 
+    
+"Can I use your software in a commercial product? Do I have to pay you?"
+    Yes you can, and no you don't have to, although we certainly won't object to any checks you care to send our way.
+    
+"If I use your software as part of my product, do I have to include your source code? Or my source code?"
+    No. You're thinking of the Gnu license. Our license just says that if you distribute our source code then you must leave in the license text; 
+    but you are free to use it in binary-only form if you like, and put the license text in your documentation instead.
+    
+"Can I make my own version of your software?"
+   Of course.
+   
+"Can I distribute my own version of your software?"
+   Yes, although unless it's just a repackaging we'd prefer that you didn't. Having multiple versions of the same thing floating around is inherently distasteful. 
+   If you absolutely must distribute your own modified version of our software, please name it something else to avoid confusing people.
+   
+"Would you please send me a signed disclaimer, so my company's lawyers are happy?"
+    No. The license in the source code is sufficient.
+    
+"We don't want to put your license in our documentation or distribute your source, can we use your software anyway?"
+    We occasionally grant special permission for this sort of thing. A donation to ACME Labs will probably improve the chances.
+    

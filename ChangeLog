@@ -1,0 +1,322 @@
+New in version 2.26: 
+• Ignore ECONNABORTED on accept(). 
+• Correctly implemented the config-file option change from "nosymlink" to "nosymlinkcheck", which was supposedly done in version 2.24. 
+• Removed mailto: link from default index page. 
+• Allow CGIs to provide both Location and Status headers. (A. Skrobov) 
+• Better logic for figuring out CGI SERVER_NAME environment variable. (Oleg) 
+• Updated for clang, and general cleanup. 
+
+New in version 2.25b: 
+• Move fdwatch initialization before the chroot, so that /dev/poll can work. 
+• Multiple fdwatch cleanups and fixes (Adam Zell). 
+
+New in version 2.25: 
+• Prohibit "Host: ." and "Host: .." (David Leadbeater). 
+• Don't free memory prematurely on SIGUSR1 (A.D.F.). 
+• Use the specified charset in directory listings and errors (Jonas Ohlsson). 
+• Lowered THROTTLE_TIME from 60 seconds to 2 seconds, plus more aggressive computation of sending rate, to improve throttle reaction time (E Frank Ball). 
+• Added code to redistribute the throttled bandwidth fairly among the currently sending connections. 
+• Some more throttling changes that smooth things out a lot. 
+• Added an experimental limitation on the number of simultaneous CGIs. 
+• Chown the log file when starting as root, so that it can later be re-opened when running as nobody (or whatever user you configure). Also tweak the logfile pathname so that it still works inside a chroot tree. 
+• Make sure URL paths begin with a slash. 
+• Generate multiple MIME encodings in the correct order, and with the correct separator. 
+• Ignore EINTR on read() and write(). 
+• Fix error in httpd_read_fully() and httpd_write_fully() that could cause incorrect data to be read or written (Daniel Jensen). 
+• Don't attempt to double-free a file descriptor if a connection times out while it is paused for throttling. 
+• Save and restore errno in signal handlers. 
+• The non-local referer check is no longer fooled by URLs with query strings. 
+• Simplified handling of HAVE_INT64T (Trisk). If this causes problems, e.g. if there are still systems which don't have "long long", we can back out the change. 
+• Keep a list of free connection structs, instead of doing linear search to find a free one (Adam Zell). 
+• Added config.h option FLUSH_LOG_EVERY_TIME - if it's turned off, the log does not get fflushed after each request (Adam Zell). 
+• Multiple robustness improvements to the fdwatch module (Adam Zell). 
+• Added /dev/poll support to fdwatch (Adam Zell). 
+• Automatically add no-cache control header on error responses. 
+
+New in version 2.24: 
+• Added a bunch of MIME types. 
+• Fix minor problem with returning unknown protocol on some errors. 
+• Changed the config-file option for diabling symlink checking from "nosymlink" to "nosymlinkcheck" to make its function clearer. 
+• Allow blank lines in the config file. 
+• Handle more than one SIGHUP and SIGUSR2 (Cameron Gregory). 
+• Slight change to handle_newconnect() to better deal with unexpected errors from accept(), such as running out of file descriptors (Alex Keahan). 
+• Added optional minimum rate to throttles. 
+• Stats syslog messages downgraded from LOG_NOTICE to LOG_INFO. 
+• Use unsigned short consistently for port number. 
+• Prohibit slashes in the Host: header (Marcus Breiing). 
+• Added a -dd data_dir flag and corresponding config-file option. 
+• Got rid of the old timer-based zombie process reaper, replacing it with a SIGCHLD handler. 
+• Changed the idle connection checking from using a separate timer for each connection to using a single timer that checks all active connections. 
+• Correction to missing-slash directory redirect with query string. 
+• Added a watchdog alarm handler that forces a core dump if thttpd stops running its timers for too long. 
+• Don't send Content-Length header on 304 Not Modified responses. 
+• Allow user-agent log entries to be up to 200 characters long, instead only of 80. 
+• Fixed buffer overflow bug in defang(). 
+• Re-arranged the order of calling de_dotdot() so that it doesn't get applied to query strings. 
+• Some fixes for the syslogtocern script (paul fox). 
+• Changed configure script to use "gcc -dumpversion" instead of "gcc --version" (Ed Goforth). 
+• Changed most uses of \r and \n to \015 and \012 (Jens Bauer). 
+• In ssi.c, lack of PATH_INFO is now non-fatal (David Phillips). 
+• Some improvements to fdwatch (David Burgess). 
+
+New in version 2.23: 
+• Added some Microsoft MIME types (Kevin Day). 
+• Switch htpasswd from using tmpnam to mkstemp. 
+• Use memmove instead of memcpy. 
+• Fix to de_dotdot (Mark Dunlap). 
+• Corrected some uses of size_t and off_t. 
+• Rewrote figure_mime() to do binary search. If you're updating an existing installation, you'll need to do a ./configure ; make clean ; make. 
+• Removed the x- from gzip and compress in mime_encodings.txt. 
+• Added rudimentary option to set cache-control headers. 
+• Simplified the IPv6 ifdefs. 
+• Allow filenames with ? in them (Cameron Gregory). 
+• Some improvements to the mmap cache - added a "panic mode" if you run out of address space, added DESIRED_MAX_MAPPED_BYTES config.h option. 
+• Lowered OCCASIONAL_TIME from five minutes to two minutes. 
+• Added include of config.h in mmc.c (A.D.F.). 
+• Fixed compile nit in syslog.c (Peter Harris). 
+• Added configure test for int64_t. 
+• Fix CGI variable AUTH_TYPE (Alexandre CHERIF). 
+• Slight correction to SIGUSR1 handling. 
+• Split clear_connection() into two routines, one which sends a possible buffered response and the other which ignores such (David Burgess). 
+• Remove /./ in de_dotdot() (Dana Dahlstrom). 
+• Shortened LINGER_TIME from two seconds to half a second. 
+• Changed some write() calls to httpd_write_fully(), as suggested by Neale Pickett. 
+• Changed the non-mmap() read() call in mmc.c to httpd_read_fully(), as suggested by Cameron Gregory. 
+• Added .xhtml and .xht to mime_types.txt (suggested by Dave Hodder). 
+• Added index.xhtml and index.xht to INDEX_NAMES (suggested by Dave Hodder). 
+• Fix to error messages for CGI. 
+• Got rid of the custom-jiggered syslog.c, now we just use the standard system version. Also added a paragraph in the man page about the syslogd flags needed to make syslogging work from inside a chroot tree. 
+• Fixed problem involving a connection going into lingering-close mode multiple times (Cameron Gregory). 
+• Added a bunch of checks to the fdwatch package to make it more robust. 
+• Added some more checks for timers getting over-written. 
+• On generated pages which set BGCOLOR, also set TEXT LINK and VLINK. 
+• Added some OpenOffice MIME types (Dave Hodder). 
+• Fix to kqueue code (Alexey Dokuchaev, Michal Suszycki, qhwt@myrealbox.com). 
+
+New in version 2.22: 
+• Fix for the garbage characters after POST data hack. 
+• Fix for poll() problem. 
+• Some fixes for unusual cases in the CGI file-descriptor shuffling (Michael Gorlick). 
+• Lowered the default DESIRED_MAX_MAPPED_FILES from 2000 to 1000. 
+• On SysV use sigset() instead of signal() (David Koblas). 
+• Set up accept filters after listen() (Kris Spinka). 
+• Preserve query string when doing a missing-slash directory redirect. 
+• Fixed off-by-one error on EWOULDBLOCK (Sascha Schumann). 
+• Special-case logging to '-' as stdout (Matt Armstrong). 
+• Fix to poll() error handling (Sascha Schumann). 
+• Decreased memory use on kqueue() systems (Sascha Schumann). 
+• Added -s to usage line (Pavel Janík). 
+• Fix for security hole that exposed contents of .htpasswd in some cases (noticed by zeno@cgisecurity.com). 
+• Allow (and ignore) extra fields in .htpasswd files. 
+• Added some calls to shutdown() in strategic places. 
+• Added a timer-kill of the CGI interpose input and output process. These processes also now close the listen fd(s). 
+• Fixed rare file descriptor leak, when we get an unknown sockaddr family (George Schlossnagle). 
+• Zero the kqueue data structures in fdwatch before use (Jonathan Lemon). 
+• Put virtual hostname in non-local referer syslog (Craig Leres). 
+• Added a P3P server privacy header setting (Henrik Schack Jensen). 
+
+New in version 2.21b: 
+• Fix for lingering-close problem from Taner Halicioglu - on some systems, it was hanging the server. 
+
+New in version 2.21: 
+• ANSI compile nits in timers.h and libhttpd.c. I thought I had already fixed these. 
+• Two small fixes to USR1 signal handling. Should be more reliable now. 
+• Fixed the "throttle sending count was negative" bug. 
+• 503 Service Overloaded errors were not getting logged. 
+• New throttling syslogs. 
+• Tuning tweaks to throttling, it's much more accurate now. 
+• Tweak to the sample log-rotation script. 
+• Allow trailing whitespace on the HTTP request line - it violates the HTTP/1.1 spec, but it's harmless, and at least one client (TiVo's v1.3 http_get [not related to my own http_get]) generates it. 
+• Changed the capitalization on some HTTP headers we generate, to interoperate with a client (yes, the same one) that is too stoopid to do case-insensitive matching. 
+• Pass Accept-Language headers to CGIs. 
+• Make log entries at the end of a connection instead of the beginning, so that the byte count is correct. 
+• Off-by-one error in base-64 decoding (Archie Cobbs). 
+• Updated man page throttling section for the wildcard change in 2.17. 
+• Couple of fixes for top-level redirection, from KIKUCHI Takahiro. 
+• New option to hide thttpd's version, from Paul Fox. 
+• Changed include of <sys/time.h> to <time.h>. 
+• Fixed cross-site scripting bug relating to the built-in error pages. 
+• Changed the mmap cache to use ctime instead of mtime, to better handle permissions changes. 
+• VHOST_DIRLEVELS patch, from Vadim Belman. 
+• ssi missing-header bugfix, from Marcel Telka. 
+• Hack to deal with garbage characters after POST data generated by some browsers. 
+• Added -g global passwd file option, suggested by Craig Leres. 
+• Robustness and performance improvements for mmap cache, from Evan Jones. 
+• kqueue support, from Niels Provos. 
+• If both select and poll are available, always use poll. 
+• Don't syslog "Connection reset by peer" errors. 
+• If the logfile is "/dev/null", don't bother logging at all. 
+• The mmap cache now tries to keep the total number of maps below a configurable parameter. See DESIRED_MAX_MAPPED_FILES. 
+• Fix for garbled packets causing needless 400 errors, from John Salmon. 
+• Improved some status-checking and error-reporting. 
+• Redid the debugging stats syslog messages, and made them show up on a SIGUSR2 as well as by timer. 
+• Use accept filtering if available. 
+
+New in version 2.20c: 
+• Off-by-one error in base-64 decoding (Archie Cobbs). 
+
+New in version 2.20b: 
+• Corrected version of Marcel Telka's ssi fix. My bad. 
+
+New in version 2.20: 
+• Performance improvements to the timer package via hashing, and double-linking / sorting the lists. Partially based on a suggestion by Michal Ostrowski. 
+• Performance improvement to the mmap cache package, from Evan Jones. 
+• Minor Linux fix for open files limit, from Jordan Ritter. 
+• Fix for null ClientData, which picky compilers didn't like. 
+• Unknown sockaddr type becomes a non-fatal error, preventing a DOS attack. 
+• Close extraneous file descriptors on CGI calls, from Russell Dill. 
+• Security fixes for the external ssi program, from ghandi@dopesquad.net and Wolfgang Rupprecht. 
+• Fix to make the ssi program elide the HTML comment sequence, from Marcel Telka. 
+• Red Hat packaging updates from Bennett Todd. 
+• Throttling fix from Tom Pavel. 
+
+New in version 2.19: 
+• Added hack to prevent MSIE 5 from censoring error messages. 
+• Minor fix to handling of shouldn't-happen error in ls(). 
+• IPv6/Linux fix from Tero Pelander. 
+• Documented the -D flag. 
+
+New in version 2.18: 
+• Fixed URL-encoding of high-bit characters - used in directory listings. 
+• Made a few more characters come through verbatim instead of %-encoded. 
+• Couple of minor code cleanups. 
+• Added some MIME types to support WAP/WML. 
+• IPv6 fix. 
+• Made MIME text character-set an option, with iso-8859-1 the default. 
+
+New in version 2.17: 
+• A change in the way wildcard matching works - now a single * only matches strings that don't include a slash. To match entire pathnames including slashes you have to use **. 
+• On systems with IPv6, automatically bind to both v4 and v6 sockets. 
+• Slight change to non-local referer checking to handle older browsers. 
+• Tweaks to some of the error-403 syslog messages. 
+• Portability tweak for OSF/1. 
+• Portability tweak for IPv6 systems. 
+• Fix for ssi.c from Marcel Telka. 
+• Added charset=iso-8859-1 to text MIME types. 
+• Added wildcards to redirect. 
+• Changed symlinks/nosymlinks config options to symlink/nosymlink, to conform to the man page (old style still accepted). 
+
+New in version 2.16: 
+• More explicit error pages for 403 Forbidden. 
+• New section in the manual page explaining how thttpd is picky about file permissions. 
+• Couple of CGI tweaks from David Chaiken. 
+
+New in version 2.15: 
+• Use standard isxdigit macro instead of is_hexit routine. 
+• Portability fix for Debian, which lacks gai_strerror(). 
+• Fix for .htpasswd authorization, broken by 2.14's custom error pages change. 
+
+New in version 2.14: 
+• Fix to non-local referer code - it was trying to dereference a null pointer under some circumstances. 
+• Fix to If-Modified-Since - some leap year problems. 
+• Rewrote match() - it was using a whole lot of CPU time for patterns with lots of |'s, such as those used by the new non-local-referer filtering. 
+• Fix to host lookup code for -h flag. 
+• Fix custom error pages to work with 401 Unauthorized. 
+• Removed unused variable. 
+
+New in version 2.13: 
+• Portability fix for fdwatch on systems with poll() but not select(). 
+• Renamed nph-redirect to redirect, now that thttpd does header parsing. 
+• Always chdir to / after a chroot. 
+• Some minor de-linting changes. 
+• Revived code that closes stdin/stdout/stderr, after adding a fix in the CGI code to prevent descriptors from getting screwed up. 
+• Bugfix for CGI header parsing - if the CGI was sending binary data (e.g. images), the result could get truncated or corrupted. 
+• Disallow ".." listing of virtual host directory. 
+• Revised snprintf portability fix. 
+• Rearranged the hc initialization so it's all in one place. 
+• New IPv6 code from KIKUCHI Takahiro. 
+• New non-local referer filtering code from Craig Leres. 
+• New custom error pages code from Catalin Ionescu. 
+
+New in version 2.12: 
+• Better heuristic for deciding between select() and poll(). 
+• Added Red Hat RPM spec file. 
+
+New in version 2.11: 
+• Use poll() instead of select() when favorable. 
+• Do lazy allocation of part of the connection data structure, to save on memory now that we can have thousands of simultaneous connections. 
+• Some speed optimizations. 
+• Added HTTP_HOST to CGI environment. 
+• Bugfix for rare uninitialized variable. 
+
+New in version 2.10: 
+• Bugfix for CGI header parsing. 
+• Call setlogin() if it's available. 
+
+New in version 2.09: 
+• Never do lingering-close on CGI calls - this fixes the problems some people noticed with large amounts of CGI POST data. 
+• Better portability fix for numeric timezone. 
+• CGI header parsing. 
+
+New in version 2.08: 
+• Connection read buffers are allocated on demand, lowering typical memory use by a megabyte or so. 
+• Handle zero-length files better on weird systems. 
+• URI-encoding of weird characters in index generation. 
+• Enhancements to periodic stats log message. 
+
+New in version 2.07: 
+• Added CGI_LD_LIBRARY_PATH config option. 
+• Solaris portability fix for numeric timezone change. 
+• Virtual hostnames get pounded to lower case before getting looked up. 
+• Fix for TILDE_MAP_2 non-existent directories. 
+• Fix for throttling problem seen on high-traffic sites. 
+• Added option to defeat explicit symlink checking. 
+
+New in version 2.06: 
+• Portability fix for machines which don't have snprintf(). 
+• Bugfix for generated index pages. 
+• Change order of chroot initialization so that pidfile works. 
+• Change order of signal initialization so that we don't get a startup HUP. 
+• Use numeric timezones in log file. 
+• When vhosting, prepend hostname in log entry. 
+• Minor install fix. 
+• Added AUTH_TYPE CGI variable. 
+• Fix to TILDE_MAP_2. 
+• Optional multi-level vhost directory indexing. 
+
+New in version 2.05: 
+• New el-cheapo virtual hosting feature. 
+• Assorted bug fixes - non-anchored wildcard matching, truncated CGI output, throttling, authorization cache, daemonization, date-header parsing. 
+• Option to write pid to a file, re-open log file on SIGHUP. 
+• Now looks for index files from a list, instead of only index.html. 
+• Simple config file. 
+
+New in version 2.04: 
+• The simple mmap cache added in version 2.01 is now more aggressive, improving performance when a small set of files gets fetched a whole lot. 
+• Fixed bug in filename translation. 
+
+New in version 2.03: 
+• Fix for CGI, broken on Linux by the close-on-exec hack in 2.01. 
+• Do a setgroups() when root to give up supplementary groups as well as primary group. 
+
+New in version 2.02: 
+• SunOS 4 compile fix. 
+• Fix for occasional SEGV when reading too-large requests. 
+
+New in version 2.01: 
+• Mmap cache to improve performance on multiple large downloads. 
+• 40% CGI performance improvement via the close-on-exec flag. 
+• Minor optimization to the timers package, no visible effect on performance. 
+• Send response headers and first load of data as a single packet instead of two packets, which seems to save a network roundtrip time, drastically improving latency. 
+• CGI programs may now be mode 711 (execute-only). 
+• Some fixes to 'make install'. 
+
+New in version 2.00: 
+• No more 5-second initial read timeout. 
+• Faster handling of initial connections. 
+• Periodic stats syslog message. 
+• Optional logging to a file instead of syslog. 
+• Misc performance improvements. 
+
+New in version 1.95: 
+• HTTP/1.1 support. 
+• Basic authentication. 
+• Byte-range serving. 
+• New config options: GENERATE_INDEXES, LOG_UNKNOWN_HEADERS. 
+• Bug fixes. 
+
+New in version 1.90a: 
+• If-modified-since. 
+• POST. 
+• Auto-configure. 
+• Combined log format. 
