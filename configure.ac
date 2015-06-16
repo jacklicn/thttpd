@@ -69,7 +69,7 @@ AC_CHECK_MEMBERS([struct tm.tm_gmtoff],AC_DEFINE(HAVE_TM_GMTOFF,1,[struct tm has
 #endif
 ])
 
-AC_CHECK_TYPE(socklen_t,AC_DEFINE(HAVE_SOCKLENT,1,[socklen_t is defined by the system headers]),,[
+AC_CHECK_TYPE(socklen_t,AC_DEFINE(HAVE_SOCKLEN_T,1,[socklen_t is defined by the system headers]),,[
 #include <sys/types.h>
 #include <sys/socket.h>
 #if STDC_HEADERS

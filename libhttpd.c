@@ -50,11 +50,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <syslog.h>
-#define _XOPEN_SOURCE
+#define _XOPEN_SOURCE 500
 #include <unistd.h>
 #include <crypt.h>
 #include <stdarg.h>
-#define _XOPEN_SOURCE 500
 #include <signal.h>
 
 #ifdef HAVE_OSRELDATE_H
@@ -98,11 +97,7 @@
 #define SHUT_WR 1
 #endif
 
-#ifndef HAVE_INT64_T
-typedef long long int64_t;
-#endif
-
-#ifndef HAVE_SOCKLENT
+#ifndef HAVE_SOCKLEN_T
 typedef int socklen_t;
 #endif
 
