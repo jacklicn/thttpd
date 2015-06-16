@@ -39,7 +39,7 @@ AM_CPPFLAGS = -I$(top_srcdir)
 
 man_MANS = redirect.8 ssi.8
 
-EXTRA_PROGRAMS = redirect ssi phf
+noinst_PROGRAMS = redirect ssi phf
 redirect_SOURCES = redirect.c
 ssi_SOURCES = ssi.c $(top_srcdir)/match.c
 phf_SOURCES = phf.c
