@@ -35,18 +35,12 @@ WEBGROUP =	www
 # CONFIGURE: Directory for CGI executables.
 CGIBINDIR =	$(WEBDIR)/cgi-bin
 
+BINDIR = $(sbindir)
+
 AM_CPPFLAGS = -I$(top_srcdir) -DWEBDIR=\"$(WEBDIR)\"
 
 man_MANS = makeweb.1 htpasswd.1 syslogtocern.8
 
-bin_PROGRAMS = makeweb htpasswd
+sbin_PROGRAMS = makeweb htpasswd
 makeweb_SOURCES = makeweb.c
 htpasswd_SOURCES = htpasswd.c
-
-install-exec-hook:
-	rm -f $(BINDIR)/makeweb $(BINDIR)/htpasswd $(BINDIR)/syslogtocern
-	cp makeweb $(BINDIR)/makeweb
-	chgrp $(WEBGROUP) $(BINDIR)/makeweb
-	chmod 2755 $(BINDIR)/makeweb
-	cp htpasswd $(BINDIR)/htpasswd
-	cp syslogtocern $(BINDIR)/syslogtocern
