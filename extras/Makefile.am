@@ -35,8 +35,6 @@ WEBGROUP =	www
 # CONFIGURE: Directory for CGI executables.
 CGIBINDIR =	$(WEBDIR)/cgi-bin
 
-BINDIR = $(sbindir)
-
 AM_CPPFLAGS = -I$(top_srcdir) -DWEBDIR=\"$(WEBDIR)\"
 
 man_MANS = makeweb.1 htpasswd.1 syslogtocern.8
